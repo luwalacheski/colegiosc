@@ -17,6 +17,7 @@
             color: var(--cor-texto);
             margin: 0;
             padding: 0;
+            line-height: 1.6;
         }
 
         header {
@@ -69,17 +70,16 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid #eee;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
         }
 
         .item-repertorio:hover {
-            transform: scale(1.03);
+            transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(108, 92, 231, 0.15);
         }
 
         .capa {
             height: 150px;
-            background: #a29bfe;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -91,7 +91,7 @@
         }
 
         .conteudo h3 {
-            margin-top: 0;
+            margin: 0 0 10px 0;
             color: var(--cor-repertorio);
         }
 
@@ -124,11 +124,10 @@
 
 <header>
     <h1>📚 Nosso Repertório</h1>
-    <p>A coleção de ideias, projetos e talentos que constroem nossa história.</p>
+    <p>A coleção de ideias e talentos do Colégio Ágora.</p>
 </header>
 
 <div class="container">
-    
     <div class="intro">
         <h2>O que nossos alunos estão criando?</h2>
         <p>Explore as produções das nossas turmas de 2026.</p>
@@ -136,53 +135,3 @@
             <span class="tag">#Ciencia</span>
             <span class="tag">#ArteDigital</span>
             <span class="tag">#Literatura</span>
-            <span class="tag">#Robótica</span>
-        </div>
-    </div>
-
-    <main class="grid-repertorio">
-        
-        <article class="item-repertorio">
-            <div class="capa" style="background: #fab1a0;">🎨</div>
-            <div class="conteudo">
-                <h3>Galeria de NFTs Sociais</h3>
-                <p><strong>Turma:</strong> Nexus (9º ano)</p>
-                <p>Arte digital criada para arrecadar fundos para ONGs locais. Tecnologia e empatia juntas.</p>
-            </div>
-        </article>
-
-        <article class="item-repertorio">
-            <div class="capa" style="background: #81ecec;">🔬</div>
-            <div class="conteudo">
-                <h3>Bio-Plástico de Milho</h3>
-                <p><strong>Turma:</strong> Zênite (2ª Série EM)</p>
-                <p>Protótipo de embalagem sustentável desenvolvida no laboratório de química avançada.</p>
-            </div>
-        </article>
-
-        <article class="item-repertorio">
-            <div class="capa" style="background: #ffeaa7;">✍️</div>
-            <div class="conteudo">
-                <h3>Podcast "Vozes do Futuro"</h3>
-                <p><strong>Turma:</strong> Alpha (6º ao 8º ano)</p>
-                <p>Entrevistas semanais com especialistas sobre o mercado de trabalho em 2030.</p>
-            </div>
-        </article>
-
-    </main>
-
-    <section class="contato-rodape">
-        <h2>Ficou curioso?</h2>
-        <p>Para saber mais sobre nosso método ou falar com a coordenação:</p>
-        <p>📞 <strong>(11) 98888-7777</strong></p>
-        <a href="mailto:repertorio@colegioagora.edu.br" class="btn-contato">Mande um E-mail Criativo</a>
-    </section>
-
-</div>
-
-<footer>
-    © 2026 Colégio Ágora - Inventando o amanhã, hoje.
-</footer>
-
-</body>
-</html>
