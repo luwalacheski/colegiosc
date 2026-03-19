@@ -3,161 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colégio Ágora | Usina de Ideias</title>
+    <title>Repertório Criativo | Colégio Ágora</title>
     <style>
         :root {
-            --primaria: #ff4757;
-            --secundaria: #2f3542;
-            --bg: #ffffff;
-            --gradiente: linear-gradient(45deg, #ff4757, #ffa502);
+            --cor-repertorio: #6c5ce7;
+            --cor-texto: #2d3436;
+            --cor-bg: #fdfdfd;
         }
 
         body {
-            font-family: 'Comic Sans MS', 'Segoe UI', sans-serif; /* Toque lúdico */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cor-bg);
+            color: var(--cor-texto);
             margin: 0;
-            background-color: #f1f2f6;
-            color: var(--secundaria);
-        }
-
-        header {
-            background: var(--gradiente);
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-            border-bottom-left-radius: 50% 20%;
-            border-bottom-right-radius: 50% 20%;
-            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
-        }
-
-        .container {
-            max-width: 900px;
-            margin: -50px auto 50px auto;
-            padding: 20px;
-        }
-
-        .sessao-criativa {
-            background: white;
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            color: var(--primaria);
-            border-left: 5px solid var(--primaria);
-            padding-left: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .grid-turmas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .turma-card {
-            background: #f9f9f9;
-            padding: 20px;
-            border: 2px dashed #ccc;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .turma-card:hover {
-            border-color: var(--primaria);
-            transform: scale(1.05) rotate(2deg);
-            background: #fffafa;
-        }
-
-        .contato-bubble {
-            background: var(--secundaria);
-            color: #ffa502;
-            padding: 30px;
-            border-radius: 50px 50px 5px 50px;
-            display: inline-block;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .telefone {
-            font-size: 2rem;
-            display: block;
-            margin: 10px 0;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .emoji-list {
-            list-style: none;
             padding: 0;
         }
 
-        .emoji-list li {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+        header {
+            background: var(--cor-repertorio);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: -30px auto 50px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .filtro-repertorio {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #eee;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--cor-repertorio);
+        }
+
+        .grid-repertorio {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .item-repertorio {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .item-repertorio:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(108, 92, 231, 0.15);
+        }
+
+        .capa {
+            height: 150px;
+            background: #a29bfe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .conteudo {
+            padding: 20px;
+        }
+
+        .conteudo h3 {
+            margin-top: 0;
+            color: var(--cor-repertorio);
+        }
+
+        .contato-rodape {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: #f1f2f6;
+            border-radius: 30px;
+        }
+
+        .btn-contato {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--cor-repertorio);
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid var(--cor-repertorio);
         }
 
         footer {
             text-align: center;
-            padding: 30px;
-            font-style: italic;
-            color: #747d8c;
+            padding: 40px;
+            color: #b2bec3;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🚀 Colégio Ágora</h1>
-    <p>Onde a curiosidade é a nossa principal matéria.</p>
+    <h1>📚 Nosso Repertório</h1>
+    <p>A coleção de ideias, projetos e talentos que constroem nossa história.</p>
 </header>
 
 <div class="container">
     
-    <section class="sessao-criativa">
-        <h2>🎨 Nosso DNA</h2>
-        <p>Não decoramos fórmulas, criamos novas soluções. Nosso colégio é um espaço aberto para inventores, artistas e pensadores do amanhã.</p>
-        
-        <div class="grid-turmas">
-            <div class="turma-card">
-                <h3>Expedição I</h3>
-                <p>Educação Infantil</p>
-                <small>Foco: Descoberta Sensorial</small>
-            </div>
-            <div class="turma-card">
-                <h3>Nexus</h3>
-                <p>Ensino Fundamental</p>
-                <small>Foco: Projetos Reais</small>
-            </div>
-            <div class="turma-card">
-                <h3>Zênite</h3>
-                <p>Ensino Médio</p>
-                <small>Foco: Liderança e Tech</small>
-            </div>
+    <div class="intro">
+        <h2>O que nossos alunos estão criando?</h2>
+        <p>Explore as produções das nossas turmas de 2026.</p>
+        <div class="filtro-repertorio">
+            <span class="tag">#Ciencia</span>
+            <span class="tag">#ArteDigital</span>
+            <span class="tag">#Literatura</span>
+            <span class="tag">#Robótica</span>
         </div>
-    </section>
+    </div>
 
-    <section class="sessao-criativa" style="text-align: center;">
-        <h2>📞 Alô, Criativos!</h2>
-        <div class="contato-bubble">
-            <p>Dúvidas? Ideias mirabolantes? Ligue para nós:</p>
-            <a href="tel:11988887777" class="telefone">(11) 98888-7777</a>
-            <ul class="emoji-list">
-                <li>📍 Rua dos Inventores, nº 10 - Bairro Imaginação</li>
-                <li>📧 ola@colegioagora.com.br</li>
-            </ul>
-        </div>
+    <main class="grid-repertorio">
+        
+        <article class="item-repertorio">
+            <div class="capa" style="background: #fab1a0;">🎨</div>
+            <div class="conteudo">
+                <h3>Galeria de NFTs Sociais</h3>
+                <p><strong>Turma:</strong> Nexus (9º ano)</p>
+                <p>Arte digital criada para arrecadar fundos para ONGs locais. Tecnologia e empatia juntas.</p>
+            </div>
+        </article>
+
+        <article class="item-repertorio">
+            <div class="capa" style="background: #81ecec;">🔬</div>
+            <div class="conteudo">
+                <h3>Bio-Plástico de Milho</h3>
+                <p><strong>Turma:</strong> Zênite (2ª Série EM)</p>
+                <p>Protótipo de embalagem sustentável desenvolvida no laboratório de química avançada.</p>
+            </div>
+        </article>
+
+        <article class="item-repertorio">
+            <div class="capa" style="background: #ffeaa7;">✍️</div>
+            <div class="conteudo">
+                <h3>Podcast "Vozes do Futuro"</h3>
+                <p><strong>Turma:</strong> Alpha (6º ao 8º ano)</p>
+                <p>Entrevistas semanais com especialistas sobre o mercado de trabalho em 2030.</p>
+            </div>
+        </article>
+
+    </main>
+
+    <section class="contato-rodape">
+        <h2>Ficou curioso?</h2>
+        <p>Para saber mais sobre nosso método ou falar com a coordenação:</p>
+        <p>📞 <strong>(11) 98888-7777</strong></p>
+        <a href="mailto:repertorio@colegioagora.edu.br" class="btn-contato">Mande um E-mail Criativo</a>
     </section>
 
 </div>
 
 <footer>
-    <p>Desenhado para mentes que nunca param de perguntar "E se?". &copy; 2026</p>
+    © 2026 Colégio Ágora - Inventando o amanhã, hoje.
 </footer>
 
 </body>
