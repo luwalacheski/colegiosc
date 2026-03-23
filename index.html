@@ -3,122 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colégio Futuro - Educação de Qualidade</title>
+    <title>Colégio Horizonte - Educando para o Futuro</title>
     <style>
-        /* Estilos básicos para o tema escolar */
-        body {
-            font-family: Arial, sans-serif;
+        /* Estilos Gerais */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
             color: #333;
-            background-color: #f4f4f4;
+            background-color: #f4f7f6;
         }
 
-        header {
-            background-color: #004a99; /* Azul clássico escolar */
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
+        /* Navegação */
         nav {
-            background-color: #003366;
-            padding: 10px;
-            text-align: center;
+            background-color: #004a8d;
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
+        nav .logo {
+            font-size: 1.5rem;
             font-weight: bold;
         }
 
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        .hero {
-            background: #fff;
-            padding: 40px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .hero h2 {
-            color: #004a99;
-        }
-
-        .grid {
+        nav ul {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            list-style: none;
         }
 
-        .card {
-            flex: 1;
-            background: white;
-            padding: 20px;
-            border-top: 5px solid #ffcc00; /* Amarelo para destaque */
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 74, 141, 0.7), rgba(0, 74, 141, 0.7)), 
+                        url('https://images.unsplash.com/photo-1523050853063-915894612264?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .cta-button {
+            background-color: #ffcc00;
+            color: #004a8d;
+            padding: 12px 25px;
+            text-decoration: none;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            min-width: 250px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.3s;
         }
 
+        .cta-button:hover {
+            background-color: #e6b800;
+        }
+
+        /* Seção Sobre / Diferenciais */
+        .features {
+            padding: 50px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            background-color: white;
+        }
+
+        .feature-card {
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid #004a8d;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #004a8d;
+        }
+
+        /* Rodapé */
         footer {
-            background: #222;
+            background-color: #333;
             color: white;
             text-align: center;
             padding: 20px 0;
             margin-top: 40px;
         }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; }
+            nav ul { margin-top: 15px; }
+            .hero h1 { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Colégio Futuro</h1>
-        <p>Formando cidadãos para o mundo</p>
-    </header>
-
     <nav>
-        <a href="#">Início</a>
-        <a href="#">Sobre Nós</a>
-        <a href="#">Cursos</a>
-        <a href="#">Matrículas</a>
-        <a href="#">Contato</a>
+        <div class="logo">Colégio Horizonte</div>
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Níveis de Ensino</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
     </nav>
 
-    <div class="container">
-        <section class="hero">
-            <h2>Bem-vindo ao nosso espaço de aprendizado</h2>
-            <p>No Colégio Futuro, acreditamos que a educação transforma vidas. Oferecemos um ambiente seguro, tecnológico e acolhedor para o desenvolvimento integral dos nossos alunos.</p>
-        </section>
+    <header class="hero">
+        <h1>Formando mentes brilhantes</h1>
+        <p>Educação de excelência do Ensino Infantil ao Médio.</p>
+        <a href="#" class="cta-button">Agende uma Visita</a>
+    </header>
 
-        <section class="grid">
-            <div class="card">
-                <h3>Educação Infantil</h3>
-                <p>Onde o aprendizado começa com brincadeiras, descobertas e muito carinho.</p>
-            </div>
-            <div class="card">
-                <h3>Ensino Fundamental</h3>
-                <p>Base sólida de conhecimentos com foco no desenvolvimento do raciocínio e cidadania.</p>
-            </div>
-            <div class="card">
-                <h3>Ensino Médio</h3>
-                <p>Preparação completa para o vestibular e para os desafios da vida adulta.</p>
-            </div>
-        </section>
-    </div>
+    <section class="features">
+        <div class="feature-card">
+            <h3>Ensino Bilíngue</h3>
+            <p>Preparando nossos alunos para um mundo globalizado com fluência e cultura.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Tecnologia na Sala</h3>
+            <p>Laboratórios de robótica e tablets integrados ao material didático.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Esporte e Arte</h3>
+            <p>Desenvolvimento integral através de atividades extracurriculares variadas.</p>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2026 Colégio Futuro - Todos os direitos reservados.</p>
-        <p>Endereço: Rua da Educação, 123 - Centro | Telefone: (00) 1234-5678</p>
+        <p>&copy; 2026 Colégio Horizonte. Todos os direitos reservados.</p>
+        <p>Rua da Educação, 123 - São Paulo, SP</p>
     </footer>
 
 </body>
