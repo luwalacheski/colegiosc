@@ -3,34 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colégio Exemplo - Início</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Colégio Futuro | Hub de Legado</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --bg: #f8fafc;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--secondary); }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card h3 { margin-top: 0; color: var(--primary); }
+
+        .badge {
+            display: inline-block;
+            background: #e2e8f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>Colégio Exemplo</h1>
-        <p>Formando cidadãos preparados para o futuro</p>
+        <h1>Colégio Futuro</h1>
+        <p>Conectando histórias, talentos e o futuro.</p>
     </header>
 
     <nav>
-        <a href="index.html">Início</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="turmas.html">Turmas</a>
-        <a href="materias.html">Matérias</a>
-        <a href="quiz.html">Quiz</a>
-        <a href="contato.html">Contato</a>
-        <a href="tecnico.html">Técnico</a>
+        <a href="#capsula">Cápsula do Tempo</a>
+        <a href="#talentos">Troca de Saberes</a>
+        <a href="#alumni">Mapa Alumni</a>
     </nav>
 
-    <div class="container">
-        <h2>Bem-vindo ao Colégio Exemplo!</h2>
-        <p>Confira nossas fotos da escola:</p>
-        <img src="fotos/escola1.jpg" alt="Foto da Escola" width="100%">
-        <img src="fotos/escola2.jpg" alt="Foto da Escola" width="100%">
-    </div>
+    <main class="container">
+        
+        <section class="card" id="capsula">
+            <span class="badge">PROJETO 2026</span>
+            <h3>⏳ Cápsula do Tempo</h3>
+            <p>A turma do <strong>3º Ano B</strong> acabou de selar suas metas para o futuro. O acesso será liberado em Dezembro!</p>
+            <a href="#" class="btn">Ver Minha Turma</a>
+        </section>
+
+        <section class="card" id="talentos">
+            <span class="badge">COLABORAÇÃO</span>
+            <h3>🤝 Troca de Saberes</h3>
+            <p><strong>Oferta:</strong> Lucas (2º A) ensina violão.<br>
+               <strong>Busca:</strong> Ajuda com Física Termodinâmica.</p>
+            <a href="#" class="btn" style="background: var(--secondary);">Quero Trocar Saberes</a>
+        </section>
+
+        <section class="card" id="conquistas">
+            <span class="badge">DESTAQUE</span>
+            <h3>🏆 Mural de Projetos</h3>
+            <p>Confira o protótipo de braço robótico desenvolvido pelo Clube de Ciências na última semana.</p>
+            <a href="#" class="btn">Explorar Projetos</a>
+        </section>
+
+    </main>
 
     <footer>
-        <p>&copy; 2026 - Colégio Exemplo</p>
+        <p>&copy; 2026 Colégio Futuro - Plataforma de Experiência do Aluno</p>
     </footer>
+
 </body>
 </html>
