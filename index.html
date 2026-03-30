@@ -20,38 +20,43 @@
         </div>
 
         <div class="content">
-            <label>PARA ONDE VOCÊ VAI?</label>
-            <select id="route" onchange="checkBus()">
-                <option value="">Selecione sua linha...</option>
-                <option value="1">Linha Amarela - Centro</option>
-                <option value="2">Linha Verde - Bairro Industrial</option>
-                <option value="3">Linha Azul - Residencial Sul</option>
+            <label>SELECIONE SUA ROTA</label>
+            <select id="route" onchange="startBusJourney()">
+                <option value="">Aguardando seleção...</option>
+                <option value="1">Rota 01 - Centro (Via Parque)</option>
+                <option value="2">Rota 02 - Norte (Via Hospital)</option>
             </select>
 
-            <div id="bus-card" class="bus-card">
-                <div class="status-badge status-moving">
-                    <i class="fas fa-circle-notch fa-spin"></i> Em movimento
+            <div class="map-container">
+                <svg viewBox="0 0 400 200" class="map-svg">
+                    <path id="route-path" d="M 50 150 Q 150 50 250 150 T 350 50" fill="none" stroke="#dfe6e9" stroke-width="4" stroke-dasharray="8"/>
+                    
+                    <circle cx="50" cy="150" r="6" class="stop-point" />
+                    <circle cx="165" cy="85" r="6" class="stop-point" />
+                    <circle cx="280" cy="125" r="6" class="stop-point" />
+                    <circle cx="350" cy="50" r="8" class="stop-point school" />
+
+                    <g id="bus-marker" style="visibility: hidden;">
+                        <rect x="-10" y="-10" width="20" height="12" rx="2" fill="#6c5ce7" />
+                        <text y="2" x="-7" font-size="10">🚌</text>
+                    </g>
+                </svg>
+                <div class="map-labels">
+                    <span>Bairro</span>
+                    <span>Escola</span>
                 </div>
-                
+            </div>
+
+            <div id="bus-card" class="bus-card">
                 <div class="route-info">
                     <div class="eta-circle">
                         <div id="minutes">--</div>
                         <span>min</span>
                     </div>
                     <div>
-                        <h3 id="route-name">Rota Selecionada</h3>
-                        <p class="sub-text"><i class="fas fa-map-marker-alt"></i> Próxima parada: Escola Central</p>
+                        <h3 id="status-text">Localizando...</h3>
+                        <p class="sub-text" id="next-stop">Próxima parada: Calculando...</p>
                     </div>
-                </div>
-
-                <div class="progress-container">
-                    <div id="progress" class="progress-bar">
-                        <i class="fas fa-bus bus-icon-marker"></i>
-                    </div>
-                </div>
-                <div class="labels-row">
-                    <span>SAÍDA</span>
-                    <span>CHEGADA (ESCOLA)</span>
                 </div>
             </div>
         </div>
