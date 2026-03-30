@@ -1,3 +1,4 @@
+/* VARIÁVEIS E CONFIGURAÇÕES GERAIS */
 :root {
     --primary: #6c5ce7;
     --secondary: #a29bfe;
@@ -6,7 +7,11 @@
     --light: #f9f9f9;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -17,6 +22,7 @@ body {
     padding: 20px;
 }
 
+/* CONTAINER PRINCIPAL */
 .container {
     width: 100%;
     max-width: 500px;
@@ -27,6 +33,7 @@ body {
     padding-bottom: 20px;
 }
 
+/* CABEÇALHO */
 .header {
     background: var(--primary);
     color: white;
@@ -35,11 +42,20 @@ body {
     border-radius: 0 0 30px 30px;
 }
 
-.header i { font-size: 3rem; margin-bottom: 10px; }
+.header i { 
+    font-size: 3rem; 
+    margin-bottom: 10px; 
+}
 
-.content { padding: 25px; }
+.content { 
+    padding: 25px; 
+}
 
-label { font-weight: 600; font-size: 0.9rem; color: #636e72; }
+label { 
+    font-weight: 600; 
+    font-size: 0.9rem; 
+    color: #636e72; 
+}
 
 select {
     width: 100%;
@@ -50,28 +66,65 @@ select {
     margin-top: 8px;
     margin-bottom: 25px;
     outline: none;
+    transition: border-color 0.3s;
 }
 
+select:focus {
+    border-color: var(--primary);
+}
+
+/* ESTILOS DO NOVO MAPA SVG */
+.map-container {
+    background: #ffffff;
+    border: 2px solid #f0f2f5;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    position: relative;
+}
+
+.map-svg {
+    width: 100%;
+    height: auto;
+}
+
+.stop-point {
+    fill: #b2bec3;
+    transition: all 0.3s ease;
+}
+
+.stop-point.school {
+    fill: #ff7675; /* Cor de destaque da Escola */
+}
+
+.stop-active {
+    fill: var(--primary) !important;
+    r: 8; /* Aumenta o tamanho do ponto quando o ônibus está nele */
+}
+
+.map-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #636e72;
+    padding: 0 10px;
+}
+
+/* CARD DE INFORMAÇÕES (BUS CARD) */
 .bus-card {
     background: var(--light);
     border-radius: 20px;
     padding: 20px;
-    display: none;
+    display: none; /* Ativado via JavaScript */
     animation: slideUp 0.5s ease;
 }
 
-.status-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    margin-bottom: 15px;
+.route-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
 }
-
-.status-moving { background: #d1fae5; color: #065f46; }
-
-.route-info { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
 
 .eta-circle {
     background: var(--primary);
@@ -85,42 +138,21 @@ select {
     justify-content: center;
     font-weight: bold;
     font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
-.sub-text { font-size: 0.8rem; color: #636e72; }
-
-.progress-container {
-    background: #dfe6e9;
-    height: 8px;
-    border-radius: 10px;
-    position: relative;
-    margin: 30px 0 10px 0;
+.eta-circle span {
+    font-size: 0.6rem;
+    text-transform: uppercase;
 }
 
-.progress-bar {
-    background: var(--primary);
-    height: 100%;
-    width: 0%;
-    border-radius: 10px;
-    transition: width 2s ease-in-out;
-    position: relative;
+.sub-text { 
+    font-size: 0.8rem; 
+    color: #636e72; 
+    margin-top: 4px;
 }
 
-.bus-icon-marker {
-    position: absolute;
-    right: -10px;
-    top: -25px;
-    color: var(--primary);
-}
-
-.labels-row {
-    display: flex; 
-    justify-content: space-between; 
-    font-size: 0.7rem; 
-    color: #b2bec3; 
-    font-weight: bold;
-}
-
+/* ANIMAÇÕES */
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
