@@ -1,139 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termômetro de Vibe Escolar</title>
-    <style>
-        :root {
-            --primary-color: #6c5ce7;
-            --bg-color: #f0f2f5;
-            --text-color: #2d3436;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            transition: all 0.5s ease;
-        }
-
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        h2 { margin-bottom: 1.5rem; font-size: 1.2rem; }
-
-        .options {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .vibe-btn {
-            background: none;
-            border: 2px solid transparent;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-            padding: 10px;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .vibe-btn:hover {
-            transform: scale(1.2);
-            background-color: #f8f9fa;
-        }
-
-        .vibe-btn span {
-            font-size: 0.7rem;
-            margin-top: 5px;
-            font-weight: bold;
-            color: #636e72;
-        }
-
-        #message-area {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 10px;
-            display: none;
-            font-weight: 500;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-
-<div class="card" id="main-card">
-    <h2>Como está sua <span id="dynamic-text">Vibe</span> hoje?</h2>
+<div class="card">
+    <h2>🚌 Onde está meu ônibus?</h2>
     
-    <div class="options">
-        <button class="vibe-btn" onclick="setVibe('rocket', '🚀', 'Animado', '#ffeaa7')">
-            🚀<span>VOANDO</span>
-        </button>
-        <button class="vibe-btn" onclick="setVibe('brain', '🧠', 'Focado', '#a29bfe')">
-            🧠<span>FOCO</span>
-        </button>
-        <button class="vibe-btn" onclick="setVibe('paint', '🎨', 'Criativo', '#ff7675')">
-            🎨<span>ARTE</span>
-        </button>
-        <button class="vibe-btn" onclick="setVibe('sleep', '😴', 'Cansado', '#dfe6e9')">
-            😴<span>SONO</span>
-        </button>
-        <button class="vibe-btn" onclick="setVibe('zen', '🧘', 'Zen', '#55efc4')">
-            🧘<span>ZEN</span>
-        </button>
-    </div>
+    <select id="route-select" onchange="updateBusStatus()" style="padding: 10px; border-radius: 8px; width: 100%; margin-bottom: 20px;">
+        <option value="">Selecione sua rota...</option>
+        <option value="1">Rota 01 - Centro / Bairro Novo</option>
+        <option value="2">Rota 02 - Vila Industrial</option>
+        <option value="3">Rota 03 - Interior / Fazendas</option>
+    </select>
 
-    <div id="message-area"></div>
+    <div id="bus-monitor" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 12px; border-left: 5px solid #6c5ce7;">
+        <p id="bus-status">🔄 Localizando ônibus...</p>
+        <div style="background: #eee; height: 10px; border-radius: 5px; overflow: hidden; margin: 10px 0;">
+            <div id="progress-bar" style="width: 0%; height: 100%; background: #6c5ce7; transition: width 1s;"></div>
+        </div>
+        <small id="eta-text">Calculando tempo de chegada...</small>
+    </div>
 </div>
 
 <script>
-    function setVibe(type, emoji, label, color) {
-        const msgArea = document.getElementById('message-area');
-        const body = document.body;
-        const dynamicText = document.getElementById('dynamic-text');
-        
-        // Mudar o fundo suavemente
-        body.style.backgroundColor = color;
-        dynamicText.innerText = label;
-        dynamicText.style.color = '#2d3436';
+function updateBusStatus() {
+    const route = document.getElementById('route-select').value;
+    const monitor = document.getElementById('bus-monitor');
+    const status = document.getElementById('bus-status');
+    const progress = document.getElementById('progress-bar');
+    const eta = document.getElementById('eta-text');
 
-        // Mostrar mensagem personalizada
-        msgArea.style.display = 'block';
-        msgArea.style.backgroundColor = 'rgba(255,255,255,0.8)';
-        
-        let message = "";
-        switch(type) {
-            case 'rocket': message = "Incrível! Use essa energia para liderar hoje. ⚡"; break;
-            case 'brain': message = "Ótimo momento para resolver aquele desafio de matemática! 📐"; break;
-            case 'paint': message = "O mundo precisa da sua visão única hoje. Crie algo! 🖌️"; break;
-            case 'sleep': message = "Respire fundo. Lave o rosto e foque no próximo passo. ☕"; break;
-            case 'zen': message = "Sua calma ajuda a manter a harmonia na sala. Continue assim. 🍃"; break;
-        }
-
-        msgArea.innerHTML = `${emoji} <strong>${message}</strong>`;
+    if (route !== "") {
+        monitor.style.display = 'block';
+        // Simulação de busca de dados reais
+        setTimeout(() => {
+            status.innerHTML = "<strong>Ônibus em Movimento</strong> 🚌";
+            progress.style.width = "65%";
+            eta.innerText = "Previsão de chegada: 8 minutos";
+        }, 800);
+    } else {
+        monitor.style.display = 'none';
     }
+}
 </script>
-
-</body>
-</html>
