@@ -1,40 +1,62 @@
-<div class="card">
-    <h2>🚌 Onde está meu ônibus?</h2>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusSchool - Monitoramento Escolar</title>
     
-    <select id="route-select" onchange="updateBusStatus()" style="padding: 10px; border-radius: 8px; width: 100%; margin-bottom: 20px;">
-        <option value="">Selecione sua rota...</option>
-        <option value="1">Rota 01 - Centro / Bairro Novo</option>
-        <option value="2">Rota 02 - Vila Industrial</option>
-        <option value="3">Rota 03 - Interior / Fazendas</option>
-    </select>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
-    <div id="bus-monitor" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 12px; border-left: 5px solid #6c5ce7;">
-        <p id="bus-status">🔄 Localizando ônibus...</p>
-        <div style="background: #eee; height: 10px; border-radius: 5px; overflow: hidden; margin: 10px 0;">
-            <div id="progress-bar" style="width: 0%; height: 100%; background: #6c5ce7; transition: width 1s;"></div>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-bus-alt"></i>
+            <h1>BusSchool</h1>
+            <p>Acompanhe sua rota em tempo real</p>
         </div>
-        <small id="eta-text">Calculando tempo de chegada...</small>
+
+        <div class="content">
+            <label>PARA ONDE VOCÊ VAI?</label>
+            <select id="route" onchange="checkBus()">
+                <option value="">Selecione sua linha...</option>
+                <option value="1">Linha Amarela - Centro</option>
+                <option value="2">Linha Verde - Bairro Industrial</option>
+                <option value="3">Linha Azul - Residencial Sul</option>
+            </select>
+
+            <div id="bus-card" class="bus-card">
+                <div class="status-badge status-moving">
+                    <i class="fas fa-circle-notch fa-spin"></i> Em movimento
+                </div>
+                
+                <div class="route-info">
+                    <div class="eta-circle">
+                        <div id="minutes">--</div>
+                        <span>min</span>
+                    </div>
+                    <div>
+                        <h3 id="route-name">Rota Selecionada</h3>
+                        <p class="sub-text"><i class="fas fa-map-marker-alt"></i> Próxima parada: Escola Central</p>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div id="progress" class="progress-bar">
+                        <i class="fas fa-bus bus-icon-marker"></i>
+                    </div>
+                </div>
+                <div class="labels-row">
+                    <span>SAÍDA</span>
+                    <span>CHEGADA (ESCOLA)</span>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<script>
-function updateBusStatus() {
-    const route = document.getElementById('route-select').value;
-    const monitor = document.getElementById('bus-monitor');
-    const status = document.getElementById('bus-status');
-    const progress = document.getElementById('progress-bar');
-    const eta = document.getElementById('eta-text');
-
-    if (route !== "") {
-        monitor.style.display = 'block';
-        // Simulação de busca de dados reais
-        setTimeout(() => {
-            status.innerHTML = "<strong>Ônibus em Movimento</strong> 🚌";
-            progress.style.width = "65%";
-            eta.innerText = "Previsão de chegada: 8 minutos";
-        }, 800);
-    } else {
-        monitor.style.display = 'none';
-    }
-}
-</script>
+    <script src="script.js"></script>
+</body>
+</html>
