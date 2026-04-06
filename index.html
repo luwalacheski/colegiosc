@@ -21,24 +21,25 @@
 
         <div class="content">
             <label>SELECIONE SUA ROTA</label>
-            <select id="route" onchange="startBusJourney()">
+            <!-- Alterado: chama updateButtonTime ao mudar -->
+            <select id="route" onchange="updateButtonTime()">
                 <option value="">Aguardando seleção...</option>
-                <option value="1">Rota 01 - Centro </option>
-                <option value="2">Rota 02 - São José Operário </option>
-                <option value="3">Rota 03 - São Pedro </option>
-                <option value="4">Rota 04 - Linha Cambuí </option>
-                <option value="5">Rota 05 - Porto Moisés Lupion </option>
-                <option value="6">Rota 06 - São Luiz </option>
+                <option value="10">Rota 01 - Centro (10 min)</option>
+                <option value="15">Rota 02 - São José Operário (15 min)</option>
+                <option value="20">Rota 03 - São Pedro (20 min)</option>
+                <option value="25">Rota 04 - Linha Cambuí (25 min)</option>
+                <option value="30">Rota 05 - Porto Moisés Lupion (30 min)</option>
+                <option value="12">Rota 06 - São Luiz (12 min)</option>
             </select>
 
             <button class="btn-play" onclick="startBusJourney()" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 12px; border: none; background: #6c5ce7; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
                 <i class="fas fa-play"></i>
-                <span>INICIAR VIAGEM (5 MIN)</span>
+                <span id="btn-text">INICIAR VIAGEM (0 MIN)</span>
             </button>
 
             <div class="map-container" id="mapWrapper">
                 <svg viewBox="0 0 400 200" class="map-svg">
-                    <path id="route-path-animation" d="M 50 150 Q 150 50 250 150 T 350 50" fill="none" stroke="#dfe6e9" stroke-width="4" stroke-dasharray="8"/>
+                    <path id="route-path-animation" d="M 50 150 Q 150 50 250 150 T 350 50" fill="none" stroke="#dfe6e9" stroke-width="4" stroke-dasharray="8""")/>>
                     
                     <circle cx="50" cy="150" r="6" class="stop-point" />
                     <circle cx="165" cy="85" r="6" class="stop-point" />
@@ -58,12 +59,12 @@
             <div id="bus-card" class="bus-card" style="display: none;">
                 <div class="route-info">
                     <div class="eta-circle">
-                        <div id="minutes">5</div>
+                        <div id="minutes">0</div>
                         <span>min</span>
                     </div>
                     <div>
                         <h3 id="status-text">Ônibus em movimento...</h3>
-                        <p class="sub-text" id="arrival-text">Chegada prevista em 5 minutos</p>
+                        <p class="sub-text" id="arrival-text">Chegada prevista em 0 minutos</p>
                     </div>
                 </div>
             </div>
@@ -71,9 +72,33 @@
     </div>
 
     <script>
+        let countdown; // Variável global para controlar o tempo
+
+        // Atualiza o texto do botão quando seleciona a rota
+        function updateButtonTime() {
+            const routeSelect = document.getElementById('route');
+            const btnText = document.getElementById('btn-text');
+            const tempo = routeSelect.value;
+
+            if (tempo) {
+                btnText.innerText = `INICIAR VIAGEM (${tempo} MIN)`;
+            } else {
+                btnText.innerText = "INICIAR VIAGEM (0 MIN)";
+            }
+        }
+
         function startBusJourney() {
             const routeSelect = document.getElementById('route');
-            if (routeSelect.value === "") return;
+            const tempoSelecionado = parseInt(routeSelect.value);
+
+            // Valida se foi selecionada uma rota
+            if (!tempoSelecionado) {
+                alert("Selecione uma rota antes de iniciar!");
+                return;
+            }
+
+            // Limpa intervalos anteriores
+            clearInterval(countdown);
 
             const mapWrapper = document.getElementById('mapWrapper');
             const busCard = document.getElementById('bus-card');
@@ -81,21 +106,20 @@
             const statusText = document.getElementById('status-text');
             const arrivalText = document.getElementById('arrival-text');
 
-            // Reinicia o estado caso já esteja rodando
+            // Reinicia animação
             mapWrapper.classList.remove('animating');
-            void mapWrapper.offsetWidth; // Trigger reflow para reiniciar animação CSS
-            
-            // Ativa a animação e mostra o card
+            void mapWrapper.offsetWidth; 
             mapWrapper.classList.add('animating');
+            
             busCard.style.display = 'block';
             
-            let timeLeft = 5;
+            let timeLeft = tempoSelecionado;
             minutesDisplay.innerText = timeLeft;
             statusText.innerText = "Ônibus em movimento...";
             arrivalText.innerText = `Chegada prevista em ${timeLeft} minutos`;
 
-            // Intervalo para atualizar o tempo a cada 1 minuto (60000ms)
-            const countdown = setInterval(() => {
+            // Inicia contagem regressiva (1 minuto = 60000ms)
+            countdown = setInterval(() => {
                 timeLeft--;
                 if (timeLeft > 0) {
                     minutesDisplay.innerText = timeLeft;
