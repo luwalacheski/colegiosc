@@ -23,17 +23,60 @@ function checkBus() {
 
 // Função que faz o ônibus andar e conta os 5 minutos
 function startBusJourney() {
+   function startBusJourney() {
     const routeSelect = document.getElementById('route');
     const map = document.getElementById('mapWrapper');
     const card = document.getElementById('bus-card');
     const minDisplay = document.getElementById('minutes');
     const statusText = document.getElementById('status-text');
 
-    // Validação: Só inicia se uma rota estiver selecionada
     if (routeSelect.value === "") {
-        alert("Por favor, selecione uma rota primeiro!");
+        alert("Por favor, selecione uma rota!");
         return;
     }
+
+    // Definição dos tempos que você pediu (em minutos)
+    const dadosRotas = {
+        "1": 10,
+        "2": 9,
+        "3": 7,
+        "4": 9
+    };
+
+    const tempoOriginal = dadosRotas[routeSelect.value] || 5; // Padrão 5 se não achar
+    let tempoRestante = tempoOriginal;
+
+    // --- AJUSTE DA ANIMAÇÃO ---
+    // Remove a classe para resetar
+    map.classList.remove('animating');
+    void map.offsetWidth; 
+    
+    // Define a duração da animação no CSS dinamicamente (minutos * 60 segundos)
+    const busIcon = document.getElementById('bus-marker-dynamic');
+    busIcon.style.animationDuration = (tempoOriginal * 60) + "s";
+    
+    map.classList.add('animating');
+    card.style.display = 'block';
+
+    // --- LÓGICA DO CRONÔMETRO ---
+    minDisplay.innerText = tempoRestante;
+    statusText.innerText = "Ônibus em movimento...";
+
+    // Limpa qualquer intervalo anterior para não atropelar os números
+    if (window.timerViagem) clearInterval(window.timerViagem);
+
+    window.timerViagem = setInterval(() => {
+        tempoRestante--;
+        
+        if (tempoRestante > 0) {
+            minDisplay.innerText = tempoRestante;
+        } else {
+            minDisplay.innerText = "0";
+            statusText.innerText = "Chegou ao destino!";
+            clearInterval(window.timerViagem);
+        }
+    }, 60000); // 1 minuto
+}
 
     // 1. Inicia a animação visual do CSS
     map.classList.remove('animating'); // Reseta se já estava rodando
