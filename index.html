@@ -21,26 +21,31 @@
 
         <div class="content">
             <label>SELECIONE SUA ROTA</label>
-            <select id="route" onchange="startBusJourney()">
+            <select id="route">
                 <option value="">Aguardando seleção...</option>
                 <option value="1">Rota 01 - Centro (Via Parque)</option>
                 <option value="2">Rota 02 - Norte (Via Hospital)</option>
             </select>
 
-            <div class="map-container">
+            <button class="btn-play" id="btnPlay" onclick="toggleTracking()">
+                <i class="fas fa-play" id="playIcon"></i>
+                <span id="playText">INICIAR MONITORAMENTO</span>
+            </button>
+
+            <div class="map-container" id="mapWrapper">
                 <svg viewBox="0 0 400 200" class="map-svg">
-                    <path id="route-path" d="M 50 150 Q 150 50 250 150 T 350 50" fill="none" stroke="#dfe6e9" stroke-width="4" stroke-dasharray="8"/>
+                    <path id="route-line" d="M 50 150 Q 150 50 250 150 T 350 50" fill="none" stroke="#dfe6e9" stroke-width="4" stroke-dasharray="8"/>
                     
                     <circle cx="50" cy="150" r="6" class="stop-point" />
                     <circle cx="165" cy="85" r="6" class="stop-point" />
                     <circle cx="280" cy="125" r="6" class="stop-point" />
                     <circle cx="350" cy="50" r="8" class="stop-point school" />
 
-                    <g id="bus-marker" style="visibility: hidden;">
-                        <rect x="-10" y="-10" width="20" height="12" rx="2" fill="#6c5ce7" />
-                        <text y="2" x="-7" font-size="10">🚌</text>
+                    <g id="bus-unit">
+                        <text y="10" x="-12" font-size="24">🚌</text>
                     </g>
                 </svg>
+                
                 <div class="map-labels">
                     <span>Bairro</span>
                     <span>Escola</span>
@@ -62,6 +67,28 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function toggleTracking() {
+            const mapWrapper = document.getElementById('mapWrapper');
+            const btnText = document.getElementById('playText');
+            const btnIcon = document.getElementById('playIcon');
+            const busCard = document.getElementById('bus-card');
+
+            // Ativa/Desativa a classe que dispara a animação no CSS
+            mapWrapper.classList.toggle('active-route');
+
+            if (mapWrapper.classList.contains('active-route')) {
+                btnText.innerText = "PARAR MONITORAMENTO";
+                btnIcon.classList.replace('fa-play', 'fa-stop');
+                busCard.style.display = 'block'; // Mostra o card de informações
+                document.getElementById('minutes').innerText = "12";
+                document.getElementById('status-text').innerText = "Ônibus em Movimento";
+            } else {
+                btnText.innerText = "INICIAR MONITORAMENTO";
+                btnIcon.classList.replace('fa-stop', 'fa-play');
+                busCard.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
