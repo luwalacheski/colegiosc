@@ -92,7 +92,7 @@ select {
     box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
 }
 
-/* MAPA E ANIMAÇÃO DO ÔNIBUS */
+/* MAPA E CONTAINER */
 .map-container {
     background: #ffffff;
     border: 2px solid #f0f2f5;
@@ -108,33 +108,49 @@ select {
     height: auto;
 }
 
-#bus-unit {
-    visibility: hidden; /* Escondido até o play */
+/* CONFIGURAÇÃO DO ÔNIBUS PARA SEGUIR O CAMINHO */
+#bus-marker-dynamic {
+    visibility: hidden;
+    /* Define o caminho idêntico ao do desenho (Q = Curva Bézier) */
+    offset-path: path('M 50 150 Q 150 50 250 150 T 350 50');
+    offset-rotate: auto; /* Faz o ônibus inclinar nas curvas para ficar realista */
 }
 
-/* Classe ativada pelo botão Play */
-.active-route #bus-unit {
+/* CLASSE QUE INICIA A ANIMAÇÃO (ATIVADA VIA JS) */
+.animating #bus-marker-dynamic {
     visibility: visible;
-    offset-path: path('M30 120 Q 115 50 200 120 T 370 50');
-    animation: moveBus 5s infinite linear;
+    /* 300s = 5 minutos exatos */
+    animation: followPath 300s linear forwards;
 }
 
-.active-route #route-line {
+/* BRILHO TECNOLÓGICO NA ROTA QUANDO ATIVO */
+.animating #route-path-animation {
     stroke: var(--primary);
-    filter: drop-shadow(0 0 3px var(--secondary));
+    stroke-width: 5px;
+    filter: drop-shadow(0 0 5px var(--secondary));
+    transition: all 1s ease;
 }
 
-@keyframes moveBus {
+@keyframes followPath {
     from { offset-distance: 0%; }
     to { offset-distance: 100%; }
 }
 
+/* PONTOS DE PARADA */
 .stop-point {
     fill: #b2bec3;
     transition: all 0.3s ease;
 }
 
-.stop-point.school { fill: #ff7675; }
+.stop-point.school { 
+    fill: #ff7675; 
+}
+
+/* Estilo para destacar os pontos quando o ônibus passar */
+.stop-active {
+    fill: var(--success) !important;
+    filter: drop-shadow(0 0 8px var(--success));
+}
 
 .map-labels {
     display: flex;
@@ -143,4 +159,49 @@ select {
     font-weight: bold;
     color: #636e72;
     padding: 0 10px;
+}
+
+/* CARD DE INFORMAÇÕES (BUS CARD) */
+.bus-card {
+    background: var(--light);
+    border-radius: 20px;
+    padding: 20px;
+    animation: slideUp 0.5s ease;
+}
+
+.route-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+}
+
+.eta-circle {
+    background: var(--primary);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.eta-circle span {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+}
+
+.sub-text { 
+    font-size: 0.8rem; 
+    color: #636e72; 
+    margin-top: 4px;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
