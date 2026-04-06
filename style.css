@@ -69,18 +69,38 @@ select {
     transition: border-color 0.3s;
 }
 
-select:focus {
-    border-color: var(--primary);
+/* BOTÃO PLAY TECNOLÓGICO */
+.btn-play {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* ESTILOS DO NOVO MAPA SVG */
+.btn-play:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+/* MAPA E ANIMAÇÃO DO ÔNIBUS */
 .map-container {
     background: #ffffff;
     border: 2px solid #f0f2f5;
     border-radius: 15px;
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 20px;
     position: relative;
+    overflow: hidden;
 }
 
 .map-svg {
@@ -88,19 +108,33 @@ select:focus {
     height: auto;
 }
 
+#bus-unit {
+    visibility: hidden; /* Escondido até o play */
+}
+
+/* Classe ativada pelo botão Play */
+.active-route #bus-unit {
+    visibility: visible;
+    offset-path: path('M30 120 Q 115 50 200 120 T 370 50');
+    animation: moveBus 5s infinite linear;
+}
+
+.active-route #route-line {
+    stroke: var(--primary);
+    filter: drop-shadow(0 0 3px var(--secondary));
+}
+
+@keyframes moveBus {
+    from { offset-distance: 0%; }
+    to { offset-distance: 100%; }
+}
+
 .stop-point {
     fill: #b2bec3;
     transition: all 0.3s ease;
 }
 
-.stop-point.school {
-    fill: #ff7675; /* Cor de destaque da Escola */
-}
-
-.stop-active {
-    fill: var(--primary) !important;
-    r: 8; /* Aumenta o tamanho do ponto quando o ônibus está nele */
-}
+.stop-point.school { fill: #ff7675; }
 
 .map-labels {
     display: flex;
@@ -109,51 +143,4 @@ select:focus {
     font-weight: bold;
     color: #636e72;
     padding: 0 10px;
-}
-
-/* CARD DE INFORMAÇÕES (BUS CARD) */
-.bus-card {
-    background: var(--light);
-    border-radius: 20px;
-    padding: 20px;
-    display: none; /* Ativado via JavaScript */
-    animation: slideUp 0.5s ease;
-}
-
-.route-info { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-}
-
-.eta-circle {
-    background: var(--primary);
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-}
-
-.eta-circle span {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-}
-
-.sub-text { 
-    font-size: 0.8rem; 
-    color: #636e72; 
-    margin-top: 4px;
-}
-
-/* ANIMAÇÕES */
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
 }
