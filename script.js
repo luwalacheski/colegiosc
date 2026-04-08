@@ -1,105 +1,77 @@
-// Função para detectar a seleção da rota e preparar o card
-function checkBus() {
-    const routeSelect = document.getElementById('route');
-    const card = document.getElementById('bus-card');
-    const minutes = document.getElementById('minutes');
-    const mapWrapper = document.getElementById('mapWrapper');
+<script>
+    // --- 1. NAVEGAÇÃO ENTRE TELAS ---
+    function abrirRastreador() {
+        document.getElementById('secao-apresentacao').style.display = 'none';
+        document.getElementById('secao-busschool').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
 
-    if (routeSelect.value !== "") {
-        // Exibe o painel de monitoramento
+    function voltarParaSite() {
+        document.getElementById('secao-apresentacao').style.display = 'block';
+        document.getElementById('secao-busschool').style.display = 'none';
+        // Para a viagem e limpa o timer se o usuário sair da tela
+        if (window.timerViagem) clearInterval(window.timerViagem);
+    }
+
+    // --- 2. LÓGICA DO BUSSCHOOL ---
+
+    // Atualiza o texto do botão ao selecionar a rota (opcional, mas bom para o visual)
+    function updateButtonTime() {
+        const routeSelect = document.getElementById('route');
+        const btnText = document.getElementById('btn-text');
+        if (routeSelect.value) {
+            // Pega o valor do "value" do select que você definiu no HTML anterior
+            btnText.innerText = `INICIAR VIAGEM (${routeSelect.value} MIN)`;
+        }
+    }
+
+    function startBusJourney() {
+        const routeSelect = document.getElementById('route');
+        const map = document.getElementById('mapWrapper');
+        const card = document.getElementById('bus-card');
+        const minDisplay = document.getElementById('minutes');
+        const statusText = document.getElementById('status-text');
+        const busIcon = document.getElementById('bus-marker-dynamic');
+
+        if (routeSelect.value === "") {
+            alert("Por favor, selecione uma rota!");
+            return;
+        }
+
+        // Definição dos tempos (usando o valor do select como base)
+        const tempoOriginal = parseInt(routeSelect.value) || 5; 
+        let tempoRestante = tempoOriginal;
+
+        // --- AJUSTE DA ANIMAÇÃO ---
+        map.classList.remove('animating');
+        void map.offsetWidth; // Força reset da animação
+        
+        // Sincroniza a duração da animação CSS com o tempo da rota (em segundos)
+        if (busIcon) {
+            busIcon.style.animationDuration = (tempoOriginal * 60) + "s";
+        }
+        
+        map.classList.add('animating');
         card.style.display = 'block';
-        
-        // Reseta estados anteriores caso o usuário troque de rota
-        mapWrapper.classList.remove('animating');
-        minutes.innerText = "--";
-        
-        // Como você quer que a viagem comece ao selecionar ou clicar no Play,
-        // vamos deixar os dados prontos para o início.
-    } else {
-        card.style.display = 'none';
-        mapWrapper.classList.remove('animating');
+
+        // --- LÓGICA DO CRONÔMETRO ---
+        minDisplay.innerText = tempoRestante;
+        statusText.innerText = "Ônibus em movimento...";
+
+        // Limpa qualquer intervalo anterior
+        if (window.timerViagem) clearInterval(window.timerViagem);
+
+        window.timerViagem = setInterval(() => {
+            tempoRestante--;
+            
+            if (tempoRestante > 0) {
+                minDisplay.innerText = tempoRestante;
+            } else {
+                minDisplay.innerText = "0";
+                statusText.innerText = "Chegou ao destino!";
+                clearInterval(window.timerViagem);
+                map.classList.remove('animating'); // Para o ônibus no final
+            }
+        }, 60000); // 1 minuto real
     }
-}
-
-// Função que faz o ônibus andar e conta os 5 minutos
-function startBusJourney() {
-   function startBusJourney() {
-    const routeSelect = document.getElementById('route');
-    const map = document.getElementById('mapWrapper');
-    const card = document.getElementById('bus-card');
-    const minDisplay = document.getElementById('minutes');
-    const statusText = document.getElementById('status-text');
-
-    if (routeSelect.value === "") {
-        alert("Por favor, selecione uma rota!");
-        return;
-    }
-
-    // Definição dos tempos que você pediu (em minutos)
-    const dadosRotas = {
-        "1": 10,
-        "2": 9,
-        "3": 7,
-        "4": 9
-    };
-
-    const tempoOriginal = dadosRotas[routeSelect.value] || 5; // Padrão 5 se não achar
-    let tempoRestante = tempoOriginal;
-
-    // --- AJUSTE DA ANIMAÇÃO ---
-    // Remove a classe para resetar
-    map.classList.remove('animating');
-    void map.offsetWidth; 
-    
-    // Define a duração da animação no CSS dinamicamente (minutos * 60 segundos)
-    const busIcon = document.getElementById('bus-marker-dynamic');
-    busIcon.style.animationDuration = (tempoOriginal * 60) + "s";
-    
-    map.classList.add('animating');
-    card.style.display = 'block';
-
-    // --- LÓGICA DO CRONÔMETRO ---
-    minDisplay.innerText = tempoRestante;
-    statusText.innerText = "Ônibus em movimento...";
-
-    // Limpa qualquer intervalo anterior para não atropelar os números
-    if (window.timerViagem) clearInterval(window.timerViagem);
-
-    window.timerViagem = setInterval(() => {
-        tempoRestante--;
-        
-        if (tempoRestante > 0) {
-            minDisplay.innerText = tempoRestante;
-        } else {
-            minDisplay.innerText = "0";
-            statusText.innerText = "Chegou ao destino!";
-            clearInterval(window.timerViagem);
-        }
-    }, 60000); // 1 minuto
-}
-
-    // 1. Inicia a animação visual do CSS
-    map.classList.remove('animating'); // Reseta se já estava rodando
-    void map.offsetWidth;             // Força o navegador a entender o reset
-    map.classList.add('animating');
-    
-    // 2. Exibe o card e define o tempo inicial
-    card.style.display = 'block';
-    let tempoRestante = 5; 
-    minDisplay.innerText = tempoRestante;
-    statusText.innerText = "Ônibus em movimento...";
-
-    // 3. Atualiza o contador de minutos na tela (Lógica de 5 minutos)
-    // Usamos um intervalo que roda a cada 60 segundos
-    const timer = setInterval(() => {
-        tempoRestante--;
-        
-        if (tempoRestante > 0) {
-            minDisplay.innerText = tempoRestante;
-        } else if (tempoRestante === 0) {
-            minDisplay.innerText = "0";
-            statusText.innerText = "Ônibus chegou à Escola!";
-            clearInterval(timer);
-        }
-    }, 60000); // 60.000ms = 1 minuto
-}
+</script>
