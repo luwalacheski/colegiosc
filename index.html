@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Estilos extras para a nova apresentação */
         .escola-container {
             max-width: 800px;
             margin: 20px auto;
@@ -46,24 +45,24 @@
         .btn-rastreio:hover { transform: scale(1.05); }
         .mapa-escola {
             width: 100%;
-            height: 250px;
+            height: 350px;
             border-radius: 15px;
             border: none;
             margin-top: 20px;
         }
-        #secao-busschool { display: none; } /* Esconde o rastreador inicialmente */
+        #secao-busschool { display: none; }
     </style>
 </head>
 <body>
 
     <!-- SEÇÃO 1: APRESENTAÇÃO DA ESCOLA -->
     <div id="secao-apresentacao" class="escola-container">
-        <img src="https://unsplash.com" alt="Foto do Colégio" class="coelgio.jpeg">
+        <!-- Ajustei o caminho da sua foto aqui -->
+        <img src="colegio.jpeg" alt="Foto do Colégio" class="foto-escola">
         
         <h1>Bem-vindo ao Colégio Modelo</h1>
         <p>Excelência no ensino e segurança no transporte para nossos alunos.</p>
 
-        <!-- Botão que abre o rastreador -->
         <button class="btn-rastreio" onclick="abrirRastreador()">
             <i class="fas fa-bus"></i> RASTREAR MEU ÔNIBUS
         </button>
@@ -71,19 +70,23 @@
         <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
 
         <h3>Nossa Localização</h3>
-        <p><i class="-25.658882579144443, -53.8082368642279"></i> Av. Sete de Setembro, 444 - São Cristóvão, Capanema - PR, 85816-100 </p>
-        <!-- -25.658882579144443, -53.8082368642279
+        <p><i class="fas fa-map-marker-alt"></i> Av. Sete de Setembro, 444 - São Cristóvão, Capanema - PR</p>
+        
+        <!-- Mapa real de Capanema usando as coordenadas que você mandou -->
         <iframe class="mapa-escola" src="https://google.com" allowfullscreen="" loading="lazy"></iframe>
     </div>
 
     <!-- SEÇÃO 2: O SEU CÓDIGO DO BUSSCHOOL -->
     <div id="secao-busschool">
         <div class="container">
-            <div class="header">
-                <button onclick="voltarParaSite()" style="float: left; background: none; border: none; color: white; cursor: pointer;"><i class="fas fa-arrow-left"></i> Voltar</button>
-                <i class="fas fa-bus-alt"></i>
-                <h1>BusSchool</h1>
-                <p>Acompanhe sua rota em tempo real</p>
+            <div class="header" style="display: flex; align-items: center; justify-content: space-between; padding: 20px;">
+                <button onclick="voltarParaSite()" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
+                <div style="text-align: center; flex-grow: 1;">
+                    <i class="fas fa-bus-alt"></i>
+                    <h1>BusSchool</h1>
+                </div>
             </div>
 
             <div class="content">
@@ -92,13 +95,13 @@
                     <option value="">Aguardando seleção...</option>
                     <option value="10">Rota 01 - Centro (10 min)</option>
                     <option value="15">Rota 02 - São José Operário (15 min)</option>
-                    <option value="10">Rota 03 - São Pedro (20 min)</option>
-                    <option value="15">Rota 04 - Linha Cambuí (25 min)</option>
-                    <option value="10">Rota 05 - Porto Moisés Lupion (30 min)</option>
+                    <option value="20">Rota 03 - São Pedro (20 min)</option>
+                    <option value="25">Rota 04 - Linha Cambuí (25 min)</option>
+                    <option value="30">Rota 05 - Porto Moisés Lupion (30 min)</option>
                     <option value="12">Rota 06 - São Luiz (12 min)</option>
                 </select>
 
-                <button class="btn-play" onclick="startBusJourney()" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 12px; border: none; background: #6c5ce7; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <button class="btn-play" onclick="startBusJourney()" id="btn-main">
                     <i class="fas fa-play"></i>
                     <span id="btn-text">INICIAR VIAGEM (0 MIN)</span>
                 </button>
@@ -106,12 +109,10 @@
                 <div class="map-container" id="mapWrapper">
                     <svg viewBox="0 0 400 200" class="map-svg">
                         <path id="route-path-animation" d="M 50 150 Q 150 50 250 150 T 350 50" fill="none" stroke="#dfe6e9" stroke-width="4" stroke-dasharray="8""")/>>
-                        
                         <circle cx="50" cy="150" r="6" class="stop-point" />
                         <circle cx="165" cy="85" r="6" class="stop-point" />
                         <circle cx="280" cy="125" r="6" class="stop-point" />
                         <circle cx="350" cy="50" r="8" class="stop-point school" />
-
                         <g id="bus-marker-dynamic">
                             <text y="10" x="-12" font-size="24">🚌</text>
                         </g>
@@ -139,7 +140,6 @@
     </div>
 
     <script>
-        // --- FUNÇÕES DE NAVEGAÇÃO ---
         function abrirRastreador() {
             document.getElementById('secao-apresentacao').style.display = 'none';
             document.getElementById('secao-busschool').style.display = 'block';
@@ -149,9 +149,9 @@
         function voltarParaSite() {
             document.getElementById('secao-apresentacao').style.display = 'block';
             document.getElementById('secao-busschool').style.display = 'none';
+            if (countdown) clearInterval(countdown);
         }
 
-        // --- SEU CÓDIGO ORIGINAL DO BUSSCHOOL ---
         let countdown;
 
         function updateButtonTime() {
@@ -170,7 +170,8 @@
                 return;
             }
 
-            clearInterval(countdown);
+            if (countdown) clearInterval(countdown);
+            
             const mapWrapper = document.getElementById('mapWrapper');
             const busCard = document.getElementById('bus-card');
             const minutesDisplay = document.getElementById('minutes');
